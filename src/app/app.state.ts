@@ -1,6 +1,6 @@
 export interface chatActionState {
   chatId: number;
-  chatParticular: string[];
+  message: string[];
 }
 
 export interface MyAppState {

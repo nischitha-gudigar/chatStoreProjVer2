@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MyAppState } from '../app.state';
+import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
 import { addChat } from '../chat.action';
@@ -17,14 +18,9 @@ export class ChatDisplayComponent implements OnInit {
   messageForm: FormGroup;
   selectedChatData: ChatData;
   id: number;
-  /* contains id and chats in array */
-  messageData = [];
 
   /* taken from store */
-  messageDataForDisplay$;
-
-  /* for taking previous msg */
-  chatArray: string[];
+  messageDataDisplay$: Observable<chatActionState[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -44,29 +40,29 @@ export class ChatDisplayComponent implements OnInit {
     this.messageForm = this.fb.group({
       message: ['']
     });
-    this.chatArray = Object.assign([], []);
-    this.messageDataForDisplay$ = this.store.pipe(
+
+    this.messageDataDisplay$ = this.store.pipe(
       select('messages'),
-      map(state => {
-        for (let key in state) {
+      map(state =>
+        Object.keys(state).map(key => {
           if (state[key].chatId == this.id) {
-            this.chatArray = [...state[key].chatParticular];
-            return state[key].chatParticular;
+            console.log("asdasd");
+            return state[key];
           }
-        }
-      })
+        })
+      )
     );
   }
 
   saveMessage() {
-    this.messageData = Object.assign([]);
-    this.chatArray.push(this.messageForm.value.message);
+    // this.messageData = Object.assign([]);
+    // this.chatArray.push(this.messageForm.value.message);
 
-    this.messageData.push({
-      chatId: this.id,
-      chatParticular: this.chatArray
-    });
-    this.store.dispatch(addChat({ messageData: this.messageData }));
+    // this.messageData.push({
+    //   chatId: this.id,
+    //   message: this.chatArray
+    // });
+    // this.store.dispatch(addChat({ messageData: this.messageData }));
     this.messageForm.reset();
   }
 

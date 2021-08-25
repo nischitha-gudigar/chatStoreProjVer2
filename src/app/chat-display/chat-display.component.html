@@ -14,9 +14,9 @@
     </div>
   </div>
   <div class="card cardmsg">
-    <div *ngFor="let item of messageDataForDisplay$ | async">
+    <div *ngFor="let item of messageDataDisplay$ | async | keyvalue">
       <p class="sendermsg">
-        {{item}}
+        {{item.value['message'] }}
       </p>
     </div>
   </div>
@@ -45,3 +45,5 @@
     </form>
   </div>
 </div>
+
+{{messageDataDisplay$ | async | json}}
