@@ -54,14 +54,13 @@ export class ChatDisplayComponent implements OnInit {
   }
 
   saveMessage() {
-    // this.messageData = Object.assign([]);
-    // this.chatArray.push(this.messageForm.value.message);
-
-    // this.messageData.push({
-    //   chatId: this.id,
-    //   message: this.chatArray
-    // });
-    // this.store.dispatch(addChat({ messageData: this.messageData }));
+    let messageData: chatActionState[];
+    messageData = Object.assign([], []);
+    messageData.push({
+      chatId: this.id,
+      message: [this.messageForm.value.message]
+    });
+    this.store.dispatch(addChat({ messageData }));
     this.messageForm.reset();
   }
 
