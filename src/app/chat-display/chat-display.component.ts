@@ -44,10 +44,14 @@ export class ChatDisplayComponent implements OnInit {
     this.messageDataDisplay$ = this.store.pipe(
       select('messages'),
       map(state =>
-        Object.keys(state).map(key => {
-          if (state[key].chatId == this.id) {
-            return state[key];
-          }
+        // Object.keys(state).map(key => {
+        //   if (state[key].chatId == this.id) {
+        //     return state[key];
+        //   }
+        // })
+        state.map(res => {
+          console.log('asdasf');
+          if (res.chatId == this.id) return res;
         })
       )
     );
