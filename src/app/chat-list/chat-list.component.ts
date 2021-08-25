@@ -19,9 +19,10 @@ export class ChatListComponent implements OnInit {
   /* For taking messages from store */
   messageDataForDisplay$: Observable<chatActionState[]>;
 
-  constructor(private chatService: ChatList, private store: Store<MyAppState>) {
-    this.messageDataForDisplay$ = this.store.select('messages');
-  }
+  constructor(
+    private chatService: ChatList,
+    private store: Store<MyAppState>
+  ) {}
 
   ngOnInit() {
     this.chatService.getChatList().subscribe(resultData => {
@@ -33,7 +34,7 @@ export class ChatListComponent implements OnInit {
       /* Code block is to add content received from url to store for all contacts*/
       let messageData: chatActionState[];
       this.chatListDataForDisplay.forEach(res => {
-        messageData = Object.assign([], []);
+        messageData = Object.assign([], messageData);
         messageData.push({
           chatId: res.id,
           message: [res.content]
@@ -41,5 +42,6 @@ export class ChatListComponent implements OnInit {
         this.store.dispatch(addChat({ messageData }));
       });
     });
+    this.messageDataForDisplay$ = this.store.select('messages');
   }
 }
