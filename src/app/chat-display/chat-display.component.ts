@@ -46,7 +46,6 @@ export class ChatDisplayComponent implements OnInit {
       map(state =>
         Object.keys(state).map(key => {
           if (state[key].chatId == this.id) {
-            console.log("asdasd");
             return state[key];
           }
         })
