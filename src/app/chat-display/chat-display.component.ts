@@ -64,9 +64,6 @@ export class ChatDisplayComponent implements OnInit {
       chatId: this.id,
       message: messageArray
     });
-    console.log('message array');
-    console.log(messageArray);
-    console.log(messageData);
     this.store.dispatch(addChat({ messageData }));
     this.messageForm.reset();
   }

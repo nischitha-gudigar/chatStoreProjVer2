@@ -8,10 +8,20 @@ export const initialState: chatActionState[] = [];
 const _chatReducer = createReducer(
   initialState,
   on(addChat, (state: chatActionState[], message) => {
-    return {
-      ...state,
-      ...message.messageData
-    };
+    if (state) {
+      return {
+        ...state,
+        ...message.messageData
+      };
+    } else {
+      Object.keys(state).map(key => {
+        console.log(state[key].chatId);
+        console.log(message.messageData['chatId']);
+        if (state[key].chatId == message.messageData['chatId']) {
+          console.log(key);
+        }
+      });
+    }
   })
 );
 
