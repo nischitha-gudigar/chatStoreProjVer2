@@ -8,7 +8,10 @@ export const initialState: chatActionState[] = [];
 const _chatReducer = createReducer(
   initialState,
   on(addChat, (state: chatActionState[], message) => {
-    if (state) {
+    console.log(Object.keys(state).length);
+    console.log(typeof Object.keys(state).length);
+    if (Object.keys(state).length === 0) {
+      console.log('in if block');
       return {
         ...state,
         ...message.messageData
