@@ -15,6 +15,9 @@ const _chatReducer = createReducer(
   })
 );
 
-export function chatReducer(state: chatActionState[], action: Action) {
+export function chatReducer(
+  state: chatActionState[],
+  action: Action
+): chatActionState[] {
   return _chatReducer(state, action);
 }

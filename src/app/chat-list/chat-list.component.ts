@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
@@ -12,23 +13,27 @@ import { addChat } from '../chat.action';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
+  /* For taking response from url */
   chatListDataForDisplay: ChatData[];
 
   /* For taking messages from store */
   messageDataForDisplay$: Observable<chatActionState[]>;
 
-  constructor(
-    private chatService: ChatList,
-    private store: Store<MyAppState>
-  ) {}
+  constructor(private chatService: ChatList, private store: Store<MyAppState>) {
+    this.messageDataForDisplay$ = this.store.select('messages');
+  }
 
   ngOnInit() {
     this.chatService.getChatList().subscribe(resultData => {
+      /* assigning data from url to local */
       this.chatListDataForDisplay = resultData;
 
+      /* Check whether initially store is empty or not */
+
+      /* Code block is to add content received from url to store for all contacts*/
       let messageData: chatActionState[];
-      resultData.forEach(res => {
-        messageData = Object.assign([], messageData);
+      this.chatListDataForDisplay.forEach(res => {
+        messageData = Object.assign([], []);
         messageData.push({
           chatId: res.id,
           message: [res.content]
@@ -36,7 +41,5 @@ export class ChatListComponent implements OnInit {
         this.store.dispatch(addChat({ messageData }));
       });
     });
-
-    this.messageDataForDisplay$ = this.store.select('messages');
   }
 }

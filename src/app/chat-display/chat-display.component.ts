@@ -20,7 +20,7 @@ export class ChatDisplayComponent implements OnInit {
   id: number;
 
   /* taken from store */
-  messageDataDisplay$: Observable<chatActionState[]>;
+  messageDataDisplay: chatActionState[];
 
   constructor(
     private fb: FormBuilder,
@@ -41,28 +41,24 @@ export class ChatDisplayComponent implements OnInit {
       message: ['']
     });
 
-    this.messageDataDisplay$ = this.store.pipe(
-      select('messages'),
-      map(state =>
-        // Object.keys(state).map(key => {
-        //   if (state[key].chatId == this.id) {
-        //     return state[key];
-        //   }
-        // })
-        state.map(res => {
-          console.log('asdasf');
-          if (res.chatId == this.id) return res;
-        })
-      )
-    );
+    this.store.select('messages').subscribe(messageList => {
+      this.messageDataDisplay = messageList;
+    });
   }
 
   saveMessage() {
     let messageData: chatActionState[];
-    messageData = Object.assign([], []);
+    messageData = Object.assign([], messageData);
+
+    let messageArray: string[] = [];
+    this.messageDataDisplay.filter(res => {
+      if (res.chatId == this.id) messageArray = [...res.message];
+    });
+    messageArray.push(this.messageForm.value.message);
+
     messageData.push({
       chatId: this.id,
-      message: [this.messageForm.value.message]
+      message: messageArray
     });
     this.store.dispatch(addChat({ messageData }));
     this.messageForm.reset();

@@ -14,10 +14,12 @@
     </div>
   </div>
   <div class="card cardmsg">
-    <div *ngFor="let item of messageDataDisplay$ | async | keyvalue">
-      <p class="sendermsg" *ngIf="item.value['message']!=null">
-        {{item.value['message'] }}
-      </p>
+    <div *ngFor="let msg of messageDataDisplay | keyvalue;let i=index">
+      <div *ngIf="selectedChatData?.id==msg.value['chatId']">
+        <p class="sendermsg">
+          {{msg.value['message'] }}
+        </p>
+      </div>
     </div>
   </div>
   <div class="card-body">
@@ -45,5 +47,3 @@
     </form>
   </div>
 </div>
-
-{{messageDataDisplay$ | async |json}}
