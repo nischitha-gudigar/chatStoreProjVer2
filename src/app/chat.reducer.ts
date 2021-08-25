@@ -1,36 +1,25 @@
 import { createReducer, on } from '@ngrx/store';
-import { Action } from '@ngrx/store';
 import { chatActionState } from './app.state';
-import { addChat } from './chat.action';
+import { addChat, addChatOnSave } from './chat.action';
 
-export const initialState: chatActionState[] = [];
-
-const _chatReducer = createReducer(
-  initialState,
+const initialStateOnload: chatActionState[] = [];
+export const chatLoadReducer = createReducer(
+  initialStateOnload,
   on(addChat, (state: chatActionState[], message) => {
-    console.log(Object.keys(state).length);
-    console.log(typeof Object.keys(state).length);
-    if (Object.keys(state).length === 0) {
-      console.log('in if block');
-      return {
-        ...state,
-        ...message.messageData
-      };
-    } else {
-      Object.keys(state).map(key => {
-        console.log(state[key].chatId);
-        console.log(message.messageData['chatId']);
-        if (state[key].chatId == message.messageData['chatId']) {
-          console.log(key);
-        }
-      });
-    }
+    return {
+      ...state,
+      ...message.messageData
+    };
   })
 );
 
-export function chatReducer(
-  state: chatActionState[],
-  action: Action
-): chatActionState[] {
-  return _chatReducer(state, action);
-}
+const initialStateOnSave: chatActionState[] = [];
+export const chatSaveReducer = createReducer(
+  initialStateOnSave,
+  on(addChatOnSave, (state: chatActionState[], message) => {
+    return {
+      ...state,
+      ...message.messageData
+    };
+  })
+);

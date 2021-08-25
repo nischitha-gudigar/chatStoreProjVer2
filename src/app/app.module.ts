@@ -8,7 +8,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
 import { ChatDisplayComponent } from './chat-display/chat-display.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { chatReducer } from './chat.reducer';
+import { chatLoadReducer, chatSaveReducer } from './chat.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 const routes: Routes = [
@@ -23,7 +23,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({ messages: chatReducer }),
+    StoreModule.forRoot({
+      loadMessage: chatLoadReducer,
+      saveMessage: chatSaveReducer
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25
     })
