@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { MyAppState } from '../app.state';
+import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
 import { addChatOnLoad } from '../store/chat-load.action';
+import { addChatOnSave } from '../store/chat-store.action';
 
 @Component({
   selector: 'app-chat-list',
@@ -14,6 +15,7 @@ import { addChatOnLoad } from '../store/chat-load.action';
 })
 export class ChatListComponent implements OnInit {
   contactsForDisplay$: Observable<ChatData[]>;
+  messageDisplay$: Observable<chatActionState[]>;
 
   constructor(
     private chatService: ChatList,
@@ -26,5 +28,6 @@ export class ChatListComponent implements OnInit {
     });
 
     this.contactsForDisplay$ = this.store.select('contacts');
+    this.messageDisplay$ = this.store.select('messages');
   }
 }

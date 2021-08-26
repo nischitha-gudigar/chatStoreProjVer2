@@ -14,12 +14,13 @@
     </div>
   </div>
   <div class="card cardmsg">
-    <div *ngFor="let msg of messageDataDisplay | keyvalue;let i=index">
-      <div *ngIf="selectedChatData?.id==msg.value['chatId']">
-        <p class="sendermsg">
-          {{msg.value['message'] }}
-        </p>
-      </div>
+    <div>
+      <p class="receivermsg">{{selectedChatData?.content}}</p>
+    </div>
+    <div *ngFor="let msg of chatForDisplay">
+      <p class="sendermsg">
+        {{msg}}
+      </p>
     </div>
   </div>
   <div class="card-body">
