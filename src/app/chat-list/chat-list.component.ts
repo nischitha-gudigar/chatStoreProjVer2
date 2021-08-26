@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { chatActionState } from '../app.state';
+import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
-import { addChat } from '../chat.action';
+import { addChatOnLoad } from '../store/chatLoad.action';
 
 @Component({
   selector: 'app-chat-list',
@@ -14,32 +14,23 @@ import { addChat } from '../chat.action';
 })
 export class ChatListComponent implements OnInit {
   /* For taking response from url */
-  chatListDataForDisplay: ChatData[];
+  // chatListDataForDisplay: ChatData[];
 
   /* For taking messages from store */
-  messageDataForDisplay$: Observable<chatActionState[]>;
+  contactsForDisplay$: Observable<ChatData[]>;
 
   constructor(
     private chatService: ChatList,
-    private store: Store<chatActionState[]>
-  ) {
-    // this.messageDataForDisplay$ = this.store.select('loadMessage');
-  }
+    private store: Store<MyAppState>
+  ) {}
 
   ngOnInit() {
-    this.chatService.getChatList().subscribe(resultData => {
+    this.chatService.getChatList().subscribe(messageData => {
       /* assigning data from url to local */
-      this.chatListDataForDisplay = resultData;
-      let messageData: chatActionState[];
-      this.chatListDataForDisplay.forEach(res => {
-        messageData = Object.assign([], messageData);
-        messageData.push({
-          chatId: res.id,
-          message: [res.content]
-        });
-        this.store.dispatch(addChat({ messageData }));
-      });
+      // this.chatListDataForDisplay = messageData;
+      this.store.dispatch(addChatOnLoad({ messageData }));
     });
-    this.messageDataForDisplay$ = this.store.select('loadMessage');
+
+    this.contactsForDisplay$ = this.store.select('contacts');
   }
 }
