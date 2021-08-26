@@ -4,19 +4,19 @@
       <div class="panel-head">
         <h5>Contacts List</h5>
       </div>
-      <div class="panel-body" *ngFor="let chatData of messageDataForDisplay$ | async | keyvalue;">
-        <div class="card chatcards" [routerLink]="['/chat',item.value['id']">
-          <!-- <div class="row">
+      <div class="panel-body" *ngFor="let contact of contactsForDisplay$ | async | keyvalue;">
+        <div class="card chatcards" [routerLink]="['/chat',contact.value['id']]">
+          <div class="row">
             <div class="col-sm-2 chatimg">
               <img
-                [src]="chatData.sender.profileImage"
+                [src]="contact.value['sender'].profileImage"
                 width="60"
                 height="60"
               />
             </div>
             <div class="col-sm-10 chatdet">
-              <p id="chatname"><b>{{chatData.sender.name}}</b></p>
-              <div *ngFor="let item of messageDataForDisplay$ | async | keyvalue;">
+              <p id="chatname"><b>{{contact.value['sender'].name}}</b></p>
+              <!-- <div *ngFor="let item of messageDataForDisplay$ | async | keyvalue;">
                 <div *ngIf="chatData.id==item.value['chatId']">
                   <div *ngFor="let msg of item.value['message'];let last=last">
                     <div *ngIf="last">
@@ -24,9 +24,10 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+              <span>{{contact.value['content']}}</span>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
