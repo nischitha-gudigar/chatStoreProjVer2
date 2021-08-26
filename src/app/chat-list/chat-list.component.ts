@@ -21,8 +21,8 @@ export class ChatListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.chatService.getChatList().subscribe(messageData => {
-      this.store.dispatch(addChatOnLoad({ messageData }));
+    this.chatService.getChatList().subscribe(contacts => {
+      this.store.dispatch(addChatOnLoad({ contacts }));
     });
 
     this.contactsForDisplay$ = this.store.select('contacts');

@@ -5,10 +5,10 @@ import { addChatOnLoad } from './chat-load.action';
 const initialStateOnload: ChatData[] = [];
 export const chatLoadReducer = createReducer(
   initialStateOnload,
-  on(addChatOnLoad, (state: ChatData[], messageOnLoad) => {
+  on(addChatOnLoad, (state: ChatData[], contacts) => {
     return {
       ...state,
-      ...messageOnLoad.messageData
+      ...contacts.contacts
     };
   })
 );
