@@ -6,7 +6,6 @@ import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
 import { addChatOnLoad } from '../store/chat-load.action';
-import { addChatOnSave } from '../store/chat-store.action';
 
 @Component({
   selector: 'app-chat-list',

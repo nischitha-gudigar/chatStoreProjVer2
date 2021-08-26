@@ -46,7 +46,6 @@ export class ChatDisplayComponent implements OnInit {
         select('messages'),
         map(state => {
           Object.keys(state).filter(key => {
-            console.log(state[key]);
             if (state[key].chatId == this.id)
               this.chatForDisplay = [...state[key].message];
           });
@@ -56,6 +55,7 @@ export class ChatDisplayComponent implements OnInit {
   }
 
   saveMessage() {
+    this.chatForDisplay = Object.assign([], this.chatForDisplay);
     let messageData = [];
     this.chatForDisplay.push(this.messageForm.value.message);
     messageData.push({
