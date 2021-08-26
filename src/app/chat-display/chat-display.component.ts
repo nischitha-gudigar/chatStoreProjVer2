@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
-import { addChat } from '../chat.action';
+import { addChatOnSave } from '../store/chat-store.action';
 
 @Component({
   selector: 'app-chat-display',
@@ -41,30 +41,30 @@ export class ChatDisplayComponent implements OnInit {
       message: ['']
     });
 
-    this.store.select('messages').subscribe(messageList => {
-      this.messageDataDisplay = messageList;
-    });
+    // this.store.select('messages').subscribe(messageList => {
+    //   this.messageDataDisplay = messageList;
+    // });
   }
 
   saveMessage() {
-    let messageData: chatActionState[];
-    messageData = Object.assign([], []);
+    // let messageData: chatActionState[];
+    // messageData = Object.assign([], []);
 
-    let messageArray: string[] = [];
+    // let messageArray: string[] = [];
 
-    Object.keys(this.messageDataDisplay).map(key => {
-      if (this.messageDataDisplay[key].chatId == this.id) {
-        messageArray = [...this.messageDataDisplay[key].message];
-      }
-    });
+    // Object.keys(this.messageDataDisplay).map(key => {
+    //   if (this.messageDataDisplay[key].chatId == this.id) {
+    //     messageArray = [...this.messageDataDisplay[key].message];
+    //   }
+    // });
 
-    messageArray.push(this.messageForm.value.message);
+    // messageArray.push(this.messageForm.value.message);
 
-    messageData.push({
-      chatId: this.id,
-      message: messageArray
-    });
-    this.store.dispatch(addChat({ messageData }));
+    // messageData.push({
+    //   chatId: this.id,
+    //   message: messageArray
+    // });
+    // this.store.dispatch(addChatOnSave({ messageData }));
     this.messageForm.reset();
   }
 
