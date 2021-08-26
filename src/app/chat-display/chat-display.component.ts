@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { chatActionState, MyAppState } from '../app.state';
+import { map } from 'rxjs/operators';
+import { MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
 import { ChatList } from '../chat-list.service';
 import { addChatOnSave } from '../store/chat-store.action';
@@ -15,12 +14,12 @@ import { addChatOnSave } from '../store/chat-store.action';
   styleUrls: ['./chat-display.component.css']
 })
 export class ChatDisplayComponent implements OnInit {
-  messageForm: FormGroup;
-  selectedChatData: ChatData;
-  id: number;
+  public messageForm: FormGroup;
+  public selectedChatData: ChatData;
+  public id: number;
 
   /* taken from store */
-  chatForDisplay: string[] = [];
+  public chatForDisplay: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +53,7 @@ export class ChatDisplayComponent implements OnInit {
       .subscribe();
   }
 
-  saveMessage() {
+  public saveMessage(): void {
     this.chatForDisplay = Object.assign([], this.chatForDisplay);
     let messageData = [];
     this.chatForDisplay.push(this.messageForm.value.message);
@@ -67,7 +66,7 @@ export class ChatDisplayComponent implements OnInit {
     this.messageForm.reset();
   }
 
-  goBack() {
+  public goBack(): void {
     this.route.navigate(['/contacts']);
   }
 }

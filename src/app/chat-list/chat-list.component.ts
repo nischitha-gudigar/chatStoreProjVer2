@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { chatActionState, MyAppState } from '../app.state';
 import { ChatData } from '../chat-data';
@@ -13,8 +12,8 @@ import { addChatOnLoad } from '../store/chat-load.action';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
-  contactsForDisplay$: Observable<ChatData[]>;
-  messageDisplay$: Observable<chatActionState[]>;
+  public contactsForDisplay$: Observable<ChatData[]>;
+  public messageDisplay$: Observable<chatActionState[]>;
 
   constructor(
     private chatService: ChatList,
@@ -26,6 +25,7 @@ export class ChatListComponent implements OnInit {
       this.store.dispatch(addChatOnLoad({ contacts }));
     });
 
+    /* Get contacts and messages from store */
     this.contactsForDisplay$ = this.store.select('contacts');
     this.messageDisplay$ = this.store.select('messages');
   }
