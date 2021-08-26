@@ -6,16 +6,16 @@ import { ChatData } from './chat-data';
 
 @Injectable({ providedIn: 'root' })
 export class ChatList {
-  chatUrl =
+  private chatUrl =
     'https://raw.githubusercontent.com/NablaT/test-api/master/assets/messages.json.txt';
 
   constructor(private http: HttpClient) {}
 
-  getChatList(): Observable<ChatData[]> {
+  public getChatList(): Observable<ChatData[]> {
     return this.http.get<ChatData[]>(this.chatUrl).pipe(map(res => res));
   }
 
-  getParticularChatDetails(id: number): Observable<ChatData[]> {
+  public getParticularChatDetails(id: number): Observable<ChatData[]> {
     return this.http.get<ChatData[]>(this.chatUrl);
   }
 }
