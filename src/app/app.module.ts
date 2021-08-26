@@ -8,8 +8,10 @@ import { ChatListComponent } from './chat-list/chat-list.component';
 import { ChatDisplayComponent } from './chat-display/chat-display.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { chatLoadReducer, chatSaveReducer } from './chat.reducer';
+
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { chatLoadReducer } from './store/chatLoad.reducer';
+import { chatSaveReducer } from './store/chat.reducer';
 
 const routes: Routes = [
   { path: 'contacts', component: ChatListComponent },
@@ -24,8 +26,8 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
-      loadMessage: chatLoadReducer,
-      saveMessage: chatSaveReducer
+      contacts: chatLoadReducer,
+      messages: chatSaveReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25

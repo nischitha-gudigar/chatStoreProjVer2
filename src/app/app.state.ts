@@ -1,3 +1,5 @@
+import { ChatData } from './chat-data';
+
 /* For particular chats */
 export interface chatActionState {
   chatId: number;
@@ -5,6 +7,7 @@ export interface chatActionState {
 }
 
 /* For all chats */
-// export interface MyAppState {
-//   messages: chatActionState[];
-// }
+export interface MyAppState {
+  contacts: ChatData[];
+  messages: chatActionState[];
+}
